@@ -1,0 +1,31 @@
+# 依赖库（最占 Token 的地方）
+node_modules/
+bower_components/
+
+# 构建输出（AI 不需要读编译后的代码）
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# 日志与临时文件
+*.log
+npm-debug.log*
+.cache/
+.temp/
+.tmp/
+
+# 版本控制与 IDE 配置
+.git/
+.vscode/
+.idea/
+.DS_Store
+
+# 你的耳机项目相关（可选）
+# 如果你的项目中存了高采样率的测试音频或大型 CAD 模型，建议也排除掉
+*.wav
+*.flac
+*.mp3
+*.stl
+*.obj

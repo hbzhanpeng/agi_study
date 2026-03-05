@@ -1,0 +1,52 @@
+{
+  "user": "agi-learner",
+  "current_week": 2,
+  "current_day": 4,
+  "current_topic": "Transformer 架构精读",
+  "completed_topics": [
+    "Python 基础语法",
+    "函数进阶与面向对象",
+    "异步编程",
+    "常用库与工具",
+    "FastAPI 框架",
+    "SQLAlchemy ORM",
+    "CRUD API 综合项目",
+    "机器学习三大范式",
+    "过拟合与欠拟合",
+    "数据集划分与样本不平衡",
+    "神经网络结构",
+    "前向传播与反向传播",
+    "损失函数与梯度下降",
+    "Dropout与正则化",
+    "词向量 Word Embedding",
+    "Word2Vec 算法",
+    "注意力机制 Attention",
+    "Self-Attention Q/K/V",
+    "Multi-Head Attention",
+    "位置编码 Positional Encoding"
+  ],
+  "daily_goal": 3,
+  "streak_days": 11,
+  "correct_rate": 0.94,
+  "total_exercises": 17,
+  "correct_count": 16,
+  "wrong_questions": [
+    {
+      "topic": "过拟合与欠拟合",
+      "question": "判断情况B和C",
+      "your_answer": "B欠拟合，C过拟合",
+      "correct_answer": "B过拟合，C欠拟合",
+      "note": "第二次答对了"
+    },
+    {
+      "topic": "防过拟合技术",
+      "question": "哪些在反向传播阶段起作用",
+      "your_answer": "C (Early Stopping)",
+      "correct_answer": "A (Dropout) 和 B (正则化)",
+      "note": "理解后答对了"
+    }
+  ],
+  "last_study_date": "2026-03-05",
+  "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持"],
+  "study_time_today": 90
+}
