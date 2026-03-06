@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 3,
-  "current_day": 4,
-  "current_topic": "Prompt 注入攻击与防御",
+  "current_day": 5,
+  "current_topic": "多模态 API + 模型选型策略",
   "completed_topics": [
     "Python 基础语法",
     "函数进阶与面向对象",
@@ -38,13 +38,14 @@
     "ToT 与 ReAct 推理框架",
     "System Prompt 设计模式",
     "Function Calling 原理",
-    "Prompt 注入攻击与防御"
+    "Prompt 注入攻击与防御",
+    "多模态 API 与模型选型"
   ],
   "daily_goal": 3,
   "streak_days": 13,
   "correct_rate": 0.97,
-  "total_exercises": 40,
-  "correct_count": 39,
+  "total_exercises": 42,
+  "correct_count": 41,
   "wrong_questions": [
     {
       "topic": "过拟合与欠拟合",
@@ -63,5 +64,5 @@
   ],
   "last_study_date": "2026-03-06",
   "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十三日坚持"],
-  "study_time_today": 170
+  "study_time_today": 190
 }
