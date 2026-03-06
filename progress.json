@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
-  "current_week": 2,
-  "current_day": 7,
-  "current_topic": "综合复习 + 手写注意力机制",
+  "current_week": 3,
+  "current_day": 1,
+  "current_topic": "OpenAI API 全参数详解",
   "completed_topics": [
     "Python 基础语法",
     "函数进阶与面向对象",
@@ -31,13 +31,15 @@
     "Tokenizer 原理 BPE",
     "Embedding 向量空间",
     "Tokenizer 代码实操",
-    "手写 Self-Attention"
+    "手写 Self-Attention",
+    "temperature 与 top_p",
+    "API 参数全解析"
   ],
   "daily_goal": 3,
   "streak_days": 13,
   "correct_rate": 0.96,
-  "total_exercises": 29,
-  "correct_count": 28,
+  "total_exercises": 32,
+  "correct_count": 31,
   "wrong_questions": [
     {
       "topic": "过拟合与欠拟合",
@@ -56,5 +58,5 @@
   ],
   "last_study_date": "2026-03-06",
   "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十三日坚持"],
-  "study_time_today": 60
+  "study_time_today": 90
 }
