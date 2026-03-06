@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 2,
-  "current_day": 5,
-  "current_topic": "GPT 系列演进与 Prompt Engineering",
+  "current_day": 7,
+  "current_topic": "综合复习 + 手写注意力机制",
   "completed_topics": [
     "Python 基础语法",
     "函数进阶与面向对象",
@@ -27,13 +27,17 @@
     "Transformer 架构精读",
     "GPT-1 预训练+微调",
     "GPT-2 Zero-Shot Learning",
-    "GPT-3 Few-Shot Learning"
+    "GPT-3 Few-Shot Learning",
+    "Tokenizer 原理 BPE",
+    "Embedding 向量空间",
+    "Tokenizer 代码实操",
+    "手写 Self-Attention"
   ],
   "daily_goal": 3,
-  "streak_days": 12,
-  "correct_rate": 0.95,
-  "total_exercises": 20,
-  "correct_count": 19,
+  "streak_days": 13,
+  "correct_rate": 0.96,
+  "total_exercises": 29,
+  "correct_count": 28,
   "wrong_questions": [
     {
       "topic": "过拟合与欠拟合",
@@ -50,7 +54,7 @@
       "note": "理解后答对了"
     }
   ],
-  "last_study_date": "2026-03-05",
-  "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持"],
-  "study_time_today": 135
+  "last_study_date": "2026-03-06",
+  "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十三日坚持"],
+  "study_time_today": 60
 }
