@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 3,
-  "current_day": 2,
-  "current_topic": "Prompt Engineering 系统化",
+  "current_day": 3,
+  "current_topic": "System Prompt 设计模式 + Function Calling",
   "completed_topics": [
     "Python 基础语法",
     "函数进阶与面向对象",
@@ -35,13 +35,15 @@
     "temperature 与 top_p",
     "API 参数全解析",
     "Chain of Thought CoT",
-    "ToT 与 ReAct 推理框架"
+    "ToT 与 ReAct 推理框架",
+    "System Prompt 设计模式",
+    "Function Calling 原理"
   ],
   "daily_goal": 3,
   "streak_days": 13,
   "correct_rate": 0.97,
-  "total_exercises": 36,
-  "correct_count": 35,
+  "total_exercises": 38,
+  "correct_count": 37,
   "wrong_questions": [
     {
       "topic": "过拟合与欠拟合",
@@ -60,5 +62,5 @@
   ],
   "last_study_date": "2026-03-06",
   "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十三日坚持"],
-  "study_time_today": 120
+  "study_time_today": 150
 }
