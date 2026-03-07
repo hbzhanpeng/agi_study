@@ -2,7 +2,7 @@
   "user": "agi-learner",
   "current_week": 3,
   "current_day": 7,
-  "current_topic": "第 3 周综合复习",
+  "current_topic": "实战：多模型切换智能对话系统",
   "completed_topics": [
     "Python 基础语法",
     "函数进阶与面向对象",
@@ -41,13 +41,14 @@
     "Prompt 注入攻击与防御",
     "多模态 API 与模型选型",
     "国产模型 API 与适配层",
-    "第3周综合复习"
+    "第3周综合复习",
+    "实战：多模型切换对话系统"
   ],
   "daily_goal": 3,
   "streak_days": 14,
   "correct_rate": 0.96,
-  "total_exercises": 49,
-  "correct_count": 47,
+  "total_exercises": 50,
+  "correct_count": 48,
   "wrong_questions": [
     {
       "topic": "过拟合与欠拟合",
@@ -72,6 +73,6 @@
     }
   ],
   "last_study_date": "2026-03-07",
-  "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十四日坚持"],
-  "study_time_today": 30
+  "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十四日坚持", "🚀 实战达人"],
+  "study_time_today": 40
 }
