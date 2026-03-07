@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 3,
-  "current_day": 5,
-  "current_topic": "多模态 API + 模型选型策略",
+  "current_day": 7,
+  "current_topic": "第 3 周综合复习",
   "completed_topics": [
     "Python 基础语法",
     "函数进阶与面向对象",
@@ -39,13 +39,15 @@
     "System Prompt 设计模式",
     "Function Calling 原理",
     "Prompt 注入攻击与防御",
-    "多模态 API 与模型选型"
+    "多模态 API 与模型选型",
+    "国产模型 API 与适配层",
+    "第3周综合复习"
   ],
   "daily_goal": 3,
-  "streak_days": 13,
-  "correct_rate": 0.97,
-  "total_exercises": 42,
-  "correct_count": 41,
+  "streak_days": 14,
+  "correct_rate": 0.96,
+  "total_exercises": 49,
+  "correct_count": 47,
   "wrong_questions": [
     {
       "topic": "过拟合与欠拟合",
@@ -60,9 +62,16 @@
       "your_answer": "C (Early Stopping)",
       "correct_answer": "A (Dropout) 和 B (正则化)",
       "note": "理解后答对了"
+    },
+    {
+      "topic": "Function Calling",
+      "question": "Function Calling 中谁负责执行函数",
+      "your_answer": "D (OpenAI 的服务器)",
+      "correct_answer": "C (开发者的代码)",
+      "note": "模型只做决策，执行是开发者代码做的"
     }
   ],
-  "last_study_date": "2026-03-06",
-  "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十三日坚持"],
-  "study_time_today": 190
+  "last_study_date": "2026-03-07",
+  "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十二日坚持", "🔥 十四日坚持"],
+  "study_time_today": 30
 }
