@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 4,
-  "current_day": 2,
-  "current_topic": "文档处理流水线与 Chunking 策略",
+  "current_day": 3,
+  "current_topic": "Embedding 模型选型 + 向量数据库",
   "completed_topics": [
     "Python 基础语法",
     "函数进阶与面向对象",
@@ -44,13 +44,14 @@
     "第3周综合复习",
     "实战：多模型切换对话系统",
     "RAG 核心架构",
-    "文档处理与 Chunking 策略"
+    "文档处理与 Chunking 策略",
+    "Embedding 与向量数据库选型"
   ],
   "daily_goal": 3,
   "streak_days": 1,
   "correct_rate": 0.96,
-  "total_exercises": 55,
-  "correct_count": 53,
+  "total_exercises": 57,
+  "correct_count": 55,
   "wrong_questions": [
     {
       "topic": "过拟合与欠拟合",
@@ -76,5 +77,5 @@
   ],
   "last_study_date": "2026-03-09",
   "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十四日坚持", "🚀 实战达人"],
-  "study_time_today": 20
+  "study_time_today": 45
 }
