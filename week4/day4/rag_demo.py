@@ -102,14 +102,10 @@ def search(query, top_k=3):
 
 
 # ============================================================
-# TODO 3: 实现 RAG 生成函数
+# RAG 生成函数
 # ============================================================
 def rag_answer(question):
-    # Step 1: 检索相关文档
     results = search(question, top_k=2)
-    
-    # Step 2: 拼接 Prompt
-    # 提示：把检索到的文档块拼成参考资料，和问题一起发给 LLM
     context = "\n".join([r["chunk"] for r in results])
     
     prompt = f"""
@@ -121,13 +117,6 @@ def rag_answer(question):
 
         用户问题：{question}
     """
-    # 提示：设计一个 prompt，包含：
-    # 1. 角色（你是企业知识库助手）
-    # 2. 参考资料（context）
-    # 3. 用户问题（question）
-    # 4. 规则（基于资料回答，资料中没有就说不确定）
-    
-    # Step 3: 调用 LLM 生成回答
     resp = requests.post(
         f"{BASE_URL}/chat/completions",
         headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
@@ -150,23 +139,110 @@ def rag_answer(question):
 
 
 # ============================================================
-# 测试（不需要修改）
+# TODO 4: 实现 Query 改写函数
+# ============================================================
+def rewrite_query(question):
+    # Query 改写的 prompt：让 LLM 把口语问题改写成专业查询
+    # 注意：这里不需要 context！改写只处理问题本身
+    prompt = f"请将以下口语化问题改写为一个清晰、专业的企业知识库搜索查询。只返回改写后的查询，不要任何解释。\n原始问题：{question}\n改写后的查询："
+
+    resp = requests.post(
+        f"{BASE_URL}/chat/completions",
+        headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+        json={
+            "model": "deepseek-ai/DeepSeek-V2.5",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0,
+            "max_tokens": 100
+        },
+        timeout=30
+    )
+    return resp.json()["choices"][0]["message"]["content"].strip()
+
+
+def rag_answer_with_rewrite(question):
+    rewritten = rewrite_query(question)
+    print(f"  🔄 改写: '{question}' → '{rewritten}'")
+    return rag_answer(rewritten)
+
+
+# ============================================================
+# TODO 5: 实现 HyDE（假设性文档嵌入）
+# ============================================================
+# 核心思路：先让 LLM 生成一个"假回答"，用假回答去检索
+def hyde_search(question, top_k=2):
+    # TODO: 设计一个 prompt，让 LLM 生成一个假设性的回答
+    # 注意：这个回答不需要正确，只需要格式像真文档
+    prompt = f"假设你是一个企业HR，请简短回答以下问题：{question}"
+
+    resp = requests.post(
+        f"{BASE_URL}/chat/completions",
+        headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+        json={
+            "model": "deepseek-ai/DeepSeek-V2.5",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.3,
+            "max_tokens": 200
+        },
+        timeout=30
+    )
+    fake_answer = resp.json()["choices"][0]["message"]["content"].strip()
+    print(f"  📝 假回答: {fake_answer[:60]}...")
+    
+    # 用假回答去检索（而不是用原始问题）
+    return search(fake_answer, top_k=top_k)
+
+
+def rag_answer_with_hyde(question):
+    results = hyde_search(question, top_k=2)
+    context = "\n".join([r["chunk"] for r in results])
+    
+    prompt = f"""
+        你是一个企业知识库助手，请根据以下参考资料回答用户问题。
+        如果参考资料中没有相关信息，请回答"我不确定，建议咨询HR"。
+        参考资料：
+        {context}
+        用户问题：{question}
+    """
+    resp = requests.post(
+        f"{BASE_URL}/chat/completions",
+        headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+        json={
+            "model": "deepseek-ai/DeepSeek-V2.5",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.3,
+            "max_tokens": 500
+        },
+        timeout=30
+    )
+    answer = resp.json()["choices"][0]["message"]["content"]
+    return {
+        "answer": answer,
+        "scores": [round(r["score"], 4) for r in results]
+    }
+
+
+# ============================================================
+# 测试
 # ============================================================
 if __name__ == "__main__":
     print("\n" + "=" * 50)
-    print("🧪 RAG 系统测试")
+    print("🧪 测试: 三种方式对比（普通 vs Query改写 vs HyDE）")
     print("=" * 50)
     
-    questions = [
-        "我入职3年了，有多少天年假？",
-        "加班工资怎么算？",
-        "远程办公一周最多几天？",
-    ]
-    
-    for q in questions:
-        print(f"\n❓ 问题: {q}")
-        result = rag_answer(q)
-        print(f"💡 回答: {result['answer']}")
-        print(f"📚 来源: {result['sources']}")
-        print(f"📊 相似度: {result['scores']}")
+    for q in ["年假咋整啊？", "加班给钱不？"]:
+        print(f"\n❓ 口语问题: {q}")
+        
+        print("  --- 1. 普通 RAG ---")
+        r1 = rag_answer(q)
+        print(f"  📊 相似度: {r1['scores']}")
+        
+        print("  --- 2. Query 改写 ---")
+        r2 = rag_answer_with_rewrite(q)
+        print(f"  📊 相似度: {r2['scores']}")
+        
+        print("  --- 3. HyDE ---")
+        r3 = rag_answer_with_hyde(q)
+        print(f"  📊 相似度: {r3['scores']}")
+        
         print("-" * 40)
