@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
-  "current_week": 4,
-  "current_day": 7,
-  "current_topic": "第4周综合复习 + RAG 大实战",
+  "current_week": 5,
+  "current_day": 1,
+  "current_topic": "AI Agent 核心概念",
   "completed_topics": [
     "Python 基础语法", "函数进阶与面向对象", "异步编程", "常用库与工具",
     "FastAPI 框架", "SQLAlchemy ORM", "CRUD API 综合项目",
@@ -16,13 +16,14 @@
     "System Prompt 设计模式", "Function Calling 原理", "Prompt 注入攻击与防御",
     "多模态 API 与模型选型", "国产模型 API 与适配层", "第3周综合复习", "实战：多模型切换对话系统",
     "RAG 核心架构", "文档处理与 Chunking 策略", "Embedding 与向量数据库选型",
-    "检索策略与 RAG 实战", "RAG 进阶技巧", "RAG 评估体系", "第4周综合复习 + RAG 大实战"
+    "检索策略与 RAG 实战", "RAG 进阶技巧", "RAG 评估体系", "第4周综合复习 + RAG 大实战",
+    "AI Agent 核心概念"
   ],
   "daily_goal": 3,
   "streak_days": 1,
   "correct_rate": 0.97,
-  "total_exercises": 69,
-  "correct_count": 67,
+  "total_exercises": 71,
+  "correct_count": 69,
   "wrong_questions": [
     { "topic": "过拟合与欠拟合", "question": "判断情况B和C", "note": "第二次答对了" },
     { "topic": "防过拟合技术", "question": "哪些在反向传播阶段起作用", "note": "理解后答对了" },
@@ -30,5 +31,5 @@
   ],
   "last_study_date": "2026-03-09",
   "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十四日坚持", "🚀 实战达人", "🧠 RAG 实战通关", "📊 数据驱动", "🏅 第四周毕业"],
-  "study_time_today": 200
+  "study_time_today": 215
 }
