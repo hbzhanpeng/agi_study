@@ -58,6 +58,34 @@ Answer → 返回最终结果
 
 ---
 
-## 5. 下一步学习
+## 6. 实战：手写 ReAct Agent
 
-**Day 2 内容**：Function Calling 实战（Agent 的核心能力）
+`react_agent.py` 实现了完整的 ReAct 循环：
+
+```python
+# Agent 决策（LLM 返回 JSON）
+{"thought": "需要查询...", "action": "lookup", "action_input": "年假"}
+
+# ReAct 循环
+for step in range(max_steps):
+    decision = agent_decide(question, history)
+    if decision["action"] == "finish": return
+    obs = TOOLS[action]["func"](input)  # 执行工具
+    history.append(...)  # 记录
+```
+
+### 踩坑记录
+- f-string 中 `{}` 要用 `{{}}` 转义
+- 循环必须有 max_steps 防死循环
+- prompt 要用 `json.dumps(history)` 传历史，不能直接传 list
+
+### 运行结果
+- "年假政策" → lookup → 2 步完成 ✅
+- "加班费计算" → calculator → 2 步完成 ✅
+- "试用期工资" → lookup + calculator → 3 步完成 ✅（多工具协作！）
+
+---
+
+## 7. 下一步学习
+
+**Day 2 内容**：LangChain 深度（Chain/Agent/Tool/Memory/Callback）
