@@ -80,6 +80,30 @@ class ConversationSummaryMemory:
 
 ---
 
-## 6. 下一步学习
+## 6. 深度实战：带记忆的对话 Agent
+
+`chat_agent.py` 实现了 Memory + Tool 组合的多轮对话 Agent。
+
+### 核心设计：双层记忆
+
+```python
+长期记忆（Memory）     = 只存 user + assistant（跨轮持久化）
+短期记忆（Working Memory）= 当前任务的工具结果（用完即弃）
+```
+
+### 踩坑（面试高频考点）
+- ❌ 把工具结果存到长期记忆 → 记忆污染 → Agent 记不住用户名
+- ❌ 循环没有兜底 return → 返回 None
+- ✅ 工具结果只存 working_memory，任务完成后丢弃
+
+### LangChain 生态补充
+- **LangSmith**：调试+监控（类似 Sentry）
+- **LangServe**：部署（Chain → REST API）
+- **LangGraph**：复杂流程编排（状态机）
+- **LlamaIndex**：专注 RAG，和 LangChain 互补
+
+---
+
+## 7. 下一步学习
 
 **Day 3 内容**：工具调用（Function Calling 原理、工具注册/描述/校验、错误处理）
