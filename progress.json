@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 5,
-  "current_day": 5,
-  "current_topic": "Multi-Agent多智能体架构",
+  "current_day": 6,
+  "current_topic": "Agent可靠性工程",
   "completed_topics": [
     "Python 基础语法", "函数进阶与面向对象", "异步编程", "常用库与工具",
     "FastAPI 框架", "SQLAlchemy ORM", "CRUD API 综合项目",
@@ -18,13 +18,14 @@
     "RAG 核心架构", "文档处理与 Chunking 策略", "Embedding 与向量数据库选型",
     "检索策略与 RAG 实战", "RAG 进阶技巧", "RAG 评估体系", "第4周综合复习 + RAG 大实战",
     "AI Agent 核心概念", "LangChain 深度", "工具调用实战", "记忆系统 (Memory)",
-    "Multi-Agent多智能体架构"
+    "Multi-Agent多智能体架构",
+    "Agent可靠性工程"
   ],
   "daily_goal": 3,
   "streak_days": 3,
   "correct_rate": 0.97,
-  "total_exercises": 77,
-  "correct_count": 75,
+  "total_exercises": 79,
+  "correct_count": 77,
   "wrong_questions": [
     { "topic": "过拟合与欠拟合", "question": "判断情况B和C", "note": "第二次答对了" },
     { "topic": "防过拟合技术", "question": "哪些在反向传播阶段起作用", "note": "理解后答对了" },
