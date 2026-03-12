@@ -89,7 +89,6 @@ class AutonomousAgent:
                 },
             },
         ]
-        self.tools = self._define_tools()
 
     def _call_llm(self, messages: List[Dict]) -> Dict:
         """调用 LLM API"""
@@ -106,24 +105,46 @@ class AutonomousAgent:
         response = requests.post(self.api_url, headers=headers, json=payload)
         return response.json()
 
-    # TODO: 实现工具函数
     def search_web(self, query: str) -> str:
-        """搜索网络 - 你来实现"""
-        # 提示：可以使用 DuckDuckGo 或模拟搜索结果
-        return f"模拟搜索结果: {query}"
+        try:
+            response = requests.get(
+                "https://api.duckduckgo.com/",
+                params={"q": query, "format": "json"},
+                timeout=5,
+            )
+            data = response.json()
+            return data.get("AbstractText", f"搜索结果: {query}")
+        except Exception as e:
+            return f"搜索失败: {str(e)}"
 
     def read_file(self, file_path: str) -> str:
-        """读取文件 - 你来实现"""
-        return ""
+        try:
+            if not os.path.exists(file_path):
+                return f"文件不存在: {file_path}"
+            with open(file_path, "r", encoding="utf-8") as f:
+                return f.read()
+        except Exception as e:
+            return f"读取失败: {str(e)}"
 
     def write_file(self, file_path: str, content: str) -> str:
-        """写入文件 - 你来实现"""
-        return "success"
+        try:
+            os.makedirs(os.path.dirname(file_path) or ".", exist_ok=True)
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(content)
+            return f"成功写入: {file_path}"
+        except Exception as e:
+            return f"写入失败: {str(e)}"
 
     def generate_code(self, description: str, language: str, file_path: str) -> str:
-        """生成代码 - 你来实现"""
-        # 提示：调用 LLM 生成代码，然后保存
-        return "success"
+        try:
+            prompt = f"生成{language}代码: {description}\n只返回代码，不要解释。"
+            messages = [{"role": "user", "content": prompt}]
+            response = self._call_llm(messages)
+            code = response["choices"][0]["message"]["content"]
+            self.write_file(file_path, code)
+            return f"代码已生成并保存到: {file_path}"
+        except Exception as e:
+            return f"生成失败: {str(e)}"
 
     def _execute_tool(self, tool_name: str, arguments: Dict) -> str:
         """执行工具调用"""
