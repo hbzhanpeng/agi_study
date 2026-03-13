@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 6,
-  "current_day": 1,
-  "current_topic": "微调 vs Prompt Engineering vs RAG 选型决策树",
+  "current_day": 2,
+  "current_topic": "数据工程（数据清洗/去重/质量评估）",
   "completed_topics": [
     "Python 基础语法", "函数进阶与面向对象", "异步编程", "常用库与工具",
     "FastAPI 框架", "SQLAlchemy ORM", "CRUD API 综合项目",
@@ -20,13 +20,14 @@
     "AI Agent 核心概念", "LangChain 深度", "工具调用实战", "记忆系统 (Memory)",
     "Multi-Agent多智能体架构",
     "Agent可靠性工程",
-    "自主Agent综合实战"
+    "自主Agent综合实战",
+    "微调 vs Prompt Engineering vs RAG 选型决策树"
   ],
   "daily_goal": 3,
-  "streak_days": 4,
-  "correct_rate": 0.97,
-  "total_exercises": 80,
-  "correct_count": 78,
+  "streak_days": 5,
+  "correct_rate": 0.99,
+  "total_exercises": 86,
+  "correct_count": 85,
   "wrong_questions": [
     { "topic": "过拟合与欠拟合", "question": "判断情况B和C", "note": "第二次答对了" },
     { "topic": "防过拟合技术", "question": "哪些在反向传播阶段起作用", "note": "理解后答对了" },
