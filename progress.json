@@ -21,19 +21,22 @@
     "Multi-Agent多智能体架构",
     "Agent可靠性工程",
     "自主Agent综合实战",
-    "微调 vs Prompt Engineering vs RAG 选型决策树"
+    "微调 vs Prompt Engineering vs RAG 选型决策树",
+    "数据去噪 (Noise Removal)",
+    "数据去重 (Deduplication)",
+    "数据质量评估 + 指令数据集格式 (Alpaca/ShareGPT)"
   ],
   "daily_goal": 3,
-  "streak_days": 5,
+  "streak_days": 6,
   "correct_rate": 0.99,
-  "total_exercises": 86,
-  "correct_count": 85,
+  "total_exercises": 89,
+  "correct_count": 88,
   "wrong_questions": [
     { "topic": "过拟合与欠拟合", "question": "判断情况B和C", "note": "第二次答对了" },
     { "topic": "防过拟合技术", "question": "哪些在反向传播阶段起作用", "note": "理解后答对了" },
     { "topic": "Function Calling", "question": "谁负责执行函数", "note": "间隔复习已答对" }
   ],
-  "last_study_date": "2026-03-12",
+  "last_study_date": "2026-03-14",
   "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十四日坚持", "🚀 实战达人", "🧠 RAG 实战通关", "📊 数据驱动", "🏅 第四周毕业", "🔧 框架大师", "🛠️ 工具调用先锋", "🧠 记忆管理大师", "🤝 团队协作大师", "🎓 第五周毕业"],
   "study_time_today": 480
 }
