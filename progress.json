@@ -1,8 +1,8 @@
 {
   "user": "agi-learner",
   "current_week": 6,
-  "current_day": 3,
-  "current_topic": "参数高效微调 PEFT（LoRA/QLoRA 原理）",
+  "current_day": 4,
+  "current_topic": "全参微调流程（Hugging Face Transformers/Trainer）",
   "completed_topics": [
     "Python 基础语法", "函数进阶与面向对象", "异步编程", "常用库与工具",
     "FastAPI 框架", "SQLAlchemy ORM", "CRUD API 综合项目",
@@ -27,19 +27,22 @@
     "数据质量评估 + 指令数据集格式 (Alpaca/ShareGPT)",
     "为什么需要参数高效微调 PEFT",
     "LoRA 原理（低秩分解）",
-    "QLoRA 优化 + 超参数选择"
+    "QLoRA 优化 + 超参数选择",
+    "Hugging Face Trainer API 基础",
+    "训练监控与调试",
+    "分布式训练基础（DeepSpeed/FSDP）"
   ],
   "daily_goal": 3,
-  "streak_days": 7,
+  "streak_days": 8,
   "correct_rate": 0.98,
-  "total_exercises": 93,
-  "correct_count": 91,
+  "total_exercises": 98,
+  "correct_count": 96,
   "wrong_questions": [
     { "topic": "过拟合与欠拟合", "question": "判断情况B和C", "note": "第二次答对了" },
     { "topic": "防过拟合技术", "question": "哪些在反向传播阶段起作用", "note": "理解后答对了" },
     { "topic": "Function Calling", "question": "谁负责执行函数", "note": "间隔复习已答对" }
   ],
-  "last_study_date": "2026-03-15",
+  "last_study_date": "2026-03-16",
   "achievements": ["🌱 初学者", "📚 三日精进", "🔥 七天坚持", "🎯 十日坚持", "🔥 十四日坚持", "🚀 实战达人", "🧠 RAG 实战通关", "📊 数据驱动", "🏅 第四周毕业", "🔧 框架大师", "🛠️ 工具调用先锋", "🧠 记忆管理大师", "🤝 团队协作大师", "🎓 第五周毕业"],
   "study_time_today": 500
 }
