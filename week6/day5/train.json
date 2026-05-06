@@ -1,0 +1,257 @@
+[
+  {
+    "instruction": "results 没有传给 LLM",
+    "input": "",
+    "output": "【问题】results 没有传给 LLM\n【原因】写的时候只拿了检索的结果，并没有让llm 从检索的结果中去回答问题。\n【解决】讲检索的结果作为content 传入prompt，让llm基于检索的结果进行回答问题。检索部分还可以优化，先用llm 回答问题，然后用llm 回答的问题去资源库中检索，这样得到正确的概率应该会更高"
+  },
+  {
+    "instruction": "硬切分片破坏语义",
+    "input": "",
+    "output": "【问题】硬切分片破坏语义\n【原因】直接按固定字符数切割，会把一句话切成两半，破坏语义完整性。\n【解决】使用 overlap 分片，步长小于 chunk 大小，保证相邻 chunk 有重叠内容。"
+  },
+  {
+    "instruction": "prompt有空格检索不到结果",
+    "input": "",
+    "output": "【问题】prompt有空格检索不到结果\n【原因】LLM 对 prompt 的开头非常敏感，开头决定了它的「理解框架」。空行、多余的缩进，都可能让它走偏\n【解决】不要添加空行或者空格；或者使用textWrap.dedent解决"
+  },
+  {
+    "instruction": "ChromaDB重复添加文档导致检索结果重复",
+    "input": "",
+    "output": "【问题】ChromaDB重复添加文档导致检索结果重复\n【原因】每次启动程序都重新add_documents，ChromaDB会累积重复数据，检索时同一内容出现多次。\n【解决】添加前先检查collection是否已有数据，或使用upsert代替add，或在初始化时判断collection文档数量，非空则跳过导入。"
+  },
+  {
+    "instruction": "向量检索返回结果与问题语义不相关",
+    "input": "",
+    "output": "【问题】向量检索返回结果与问题语义不相关\n【原因】使用了英文embedding模型处理中文文本，导致向量表示质量差，语义相似度计算不准确。\n【解决】换用专门的中文embedding模型，如BGE-large-zh或text2vec-chinese，中文语料必须用中文模型。"
+  },
+  {
+    "instruction": "HyDE生成的假设答案反而降低了检索质量",
+    "input": "",
+    "output": "【问题】HyDE生成的假设答案反而降低了检索质量\n【原因】LLM生成的假设答案包含幻觉内容，向量化后检索到了不相关文档。\n【解决】对假设答案做长度限制，避免LLM发散；同时保留原始问题检索作为backup，取两者结果的并集后rerank。"
+  },
+  {
+    "instruction": "多轮对话历史越来越长导致超出context窗口",
+    "input": "",
+    "output": "【问题】多轮对话历史越来越长导致超出context窗口\n【原因】直接把所有历史对话拼接进prompt，10轮后token数超过模型限制，报错或截断。\n【解决】超过N轮后用LLM对历史做摘要压缩，只保留摘要+最近3轮完整对话，控制总token数在安全范围内。"
+  },
+  {
+    "instruction": "问题改写后丢失了原始问题的关键词",
+    "input": "",
+    "output": "【问题】问题改写后丢失了原始问题的关键词\n【原因】prompt让LLM补全上下文时，LLM过度改写，原始问题的专有名词被替换成了泛化描述。\n【解决】在改写prompt中明确要求保留原始关键词，加上约束：'保持原问题的专业术语不变，只补充缺失的主语和背景'。"
+  },
+  {
+    "instruction": "Agent工具调用后LLM忽略了工具返回结果",
+    "input": "",
+    "output": "【问题】Agent工具调用后LLM忽略了工具返回结果\n【原因】tool result没有正确添加到history中，LLM下一轮没有看到工具返回值，凭空回答。\n【解决】工具执行后必须将结果以role=tool的message追加到history，确保下一次LLM调用能看到完整的工具调用链。"
+  },
+  {
+    "instruction": "ReAct循环陷入死循环不停调用工具",
+    "input": "",
+    "output": "【问题】ReAct循环陷入死循环不停调用工具\n【原因】没有设置最大步数限制，LLM在某些边界情况下反复调用同一工具而不产生最终回答。\n【解决】在Agent主循环中加入max_steps参数，超过上限强制终止并返回已有信息；同时检测重复工具调用模式，连续3次相同调用则中断。"
+  },
+  {
+    "instruction": "SSE流式输出在前端显示乱码",
+    "input": "",
+    "output": "【问题】SSE流式输出在前端显示乱码\n【原因】中文字符在SSE传输时被截断，UTF-8多字节字符被分在两个chunk里，前端解析时出现乱码。\n【解决】后端确保每个SSE事件是完整的字符串单位；前端使用TextDecoder处理字节流，不要直接拼接原始bytes。"
+  },
+  {
+    "instruction": "FastAPI接口跨域请求被浏览器拦截",
+    "input": "",
+    "output": "【问题】FastAPI接口跨域请求被浏览器拦截\n【原因】React前端运行在localhost:3000，FastAPI在localhost:8000，浏览器CORS策略拒绝跨域请求。\n【解决】在FastAPI中添加CORSMiddleware，允许对应的origin；开发环境可以允许所有origin，生产环境要写明具体域名。"
+  },
+  {
+    "instruction": "bitsandbytes在Windows上导入报错",
+    "input": "",
+    "output": "【问题】bitsandbytes在Windows上导入报错\n【原因】bitsandbytes官方版本不支持Windows，导入时找不到对应的CUDA动态链接库。\n【解决】安装Windows专用版本：pip install bitsandbytes-windows，或使用bitsandbytes>=0.43版本（已加入Windows支持）。"
+  },
+  {
+    "instruction": "QLoRA训练时显存OOM",
+    "input": "",
+    "output": "【问题】QLoRA训练时显存OOM\n【原因】batch_size设置过大，或者模型加载时没有启用4bit量化，导致显存超出GPU限制。\n【解决】设置per_device_train_batch_size=1，gradient_accumulation_steps=4模拟大batch；确保使用load_in_4bit=True加载模型；同时设置fp16=True减少激活值显存占用。"
+  },
+  {
+    "instruction": "LoRA训练loss不下降",
+    "input": "",
+    "output": "【问题】LoRA训练loss不下降\n【原因】learning_rate设置过小（如1e-6），或者target_modules没有覆盖到关键层，LoRA实际上没有在训练有效参数。\n【解决】learning_rate调整到2e-4左右；target_modules至少包含q_proj和v_proj；检查trainable parameters数量是否合理（通常是总参数的0.1%-1%）。"
+  },
+  {
+    "instruction": "微调后模型输出格式不符合预期",
+    "input": "",
+    "output": "【问题】微调后模型输出格式不符合预期\n【原因】训练数据的output格式不统一，有的用【问题】有的用'问题：'，模型学到了混乱的格式。\n【解决】统一所有训练数据的格式模板，严格保持一致；增加数据量让模型充分学习目标格式；必要时在inference时用正则后处理规范输出。"
+  },
+  {
+    "instruction": "tokenizer的pad_token导致训练报错",
+    "input": "",
+    "output": "【问题】tokenizer的pad_token导致训练报错\n【原因】部分模型的tokenizer没有设置pad_token，batch训练时无法对齐序列长度。\n【解决】训练前添加：tokenizer.pad_token = tokenizer.eos_token；同时设置padding_side='right'避免左填充影响causal language model的训练。"
+  },
+  {
+    "instruction": "检索到的文档chunk太短信息不足",
+    "input": "",
+    "output": "【问题】检索到的文档chunk太短信息不足\n【原因】chunk_size设置太小（如100字），检索到的片段只有半句话，LLM无法基于此给出完整回答。\n【解决】chunk_size调整到300-500字，并设置适当overlap；检索时取top_k=5而不是top_k=1，提供更多上下文。"
+  },
+  {
+    "instruction": "相似度阈值设太高导致经常检索不到结果",
+    "input": "",
+    "output": "【问题】相似度阈值设太高导致经常检索不到结果\n【原因】设置了similarity_threshold=0.9，实际上语义相似但表达不同的句子相似度通常在0.6-0.8之间。\n【解决】阈值降低到0.5-0.7；或者改为不设阈值，始终返回top_k个结果，让LLM自行判断是否相关。"
+  },
+  {
+    "instruction": "add_note工具保存的笔记检索不到",
+    "input": "",
+    "output": "【问题】add_note工具保存的笔记检索不到\n【原因】新增笔记后只存入了文件，没有同步更新向量数据库，导致检索时找不到新内容。\n【解决】add_note工具执行时，除了持久化文本，还必须调用embedding模型对新内容向量化并写入ChromaDB，保持文件和向量库同步。"
+  },
+  {
+    "instruction": "LLM回答超出知识库范围时没有拒绝",
+    "input": "",
+    "output": "【问题】LLM回答超出知识库范围时没有拒绝\n【原因】system prompt没有明确约束LLM只基于检索结果回答，LLM会用自身训练数据补充回答，导致内容超出预期范围。\n【解决】在system prompt中明确加入：'只基于提供的参考资料回答，如果资料中没有相关信息，直接说不知道，不要自行补充'。"
+  },
+  {
+    "instruction": "历史摘要压缩后丢失了重要的上下文",
+    "input": "",
+    "output": "【问题】历史摘要压缩后丢失了重要的上下文\n【原因】摘要prompt过于简单，LLM压缩时只保留了表面信息，丢失了用户提到的具体参数、文件名等关键细节。\n【解决】摘要prompt中要求保留：关键实体名称、具体数值、用户明确表达的偏好；摘要后做一次验证，检查原对话中的专有名词是否出现在摘要中。"
+  },
+  {
+    "instruction": "Function Calling工具参数解析失败",
+    "input": "",
+    "output": "【问题】Function Calling工具参数解析失败\n【原因】LLM返回的tool_call参数是字符串而不是JSON对象，直接使用时类型不匹配报错。\n【解决】执行工具前先判断参数类型，如果是字符串则json.loads()解析；同时在工具定义的schema中把参数类型写清楚，减少LLM输出歧义。"
+  },
+  {
+    "instruction": "React前端流式打字效果出现文字跳跃",
+    "input": "",
+    "output": "【问题】React前端流式打字效果出现文字跳跃\n【原因】SSE每次收到数据后直接setState替换全文，React重渲染导致滚动位置跳动，视觉上像在跳跃。\n【解决】使用useRef保存累积文本，setState只在chunk末尾批量更新；或者用CSS的overflow-anchor属性固定滚动位置。"
+  },
+  {
+    "instruction": "向量数据库冷启动时加载太慢",
+    "input": "",
+    "output": "【问题】向量数据库冷启动时加载太慢\n【原因】每次启动都重新对所有文档做embedding，文档多时需要几十秒甚至几分钟。\n【解决】使用ChromaDB的持久化功能，第一次建库后保存到磁盘；后续启动时检测persist_directory是否存在，存在则直接加载不重新embedding。"
+  },
+  {
+    "instruction": "embedding模型每次推理都重新加载",
+    "input": "",
+    "output": "【问题】embedding模型每次推理都重新加载\n【原因】把模型加载写在函数内部，每次调用都触发模型初始化，浪费时间和内存。\n【解决】将embedding模型作为单例在模块级别初始化，或者用@lru_cache装饰器缓存模型实例，确保整个进程生命周期只加载一次。"
+  },
+  {
+    "instruction": "多租户场景下用户A能检索到用户B的数据",
+    "input": "",
+    "output": "【问题】多租户场景下用户A能检索到用户B的数据\n【原因】所有用户的数据存在同一个ChromaDB collection里，检索时没有过滤用户ID，导致数据泄露。\n【解决】方案一：每个用户创建独立的collection（隔离彻底但资源多）；方案二：统一collection但存储时加user_id到metadata，检索时用where过滤。"
+  },
+  {
+    "instruction": "Agent在工具报错后陷入混乱继续错误调用",
+    "input": "",
+    "output": "【问题】Agent在工具报错后陷入混乱继续错误调用\n【原因】工具执行异常时没有捕获，错误信息直接抛出导致整个agent崩溃；或者捕获了但没有把错误信息传回给LLM。\n【解决】用try/except包裹所有工具调用，将错误信息格式化为tool result返回给LLM，让LLM决定如何处理错误（重试、换工具或告知用户）。"
+  },
+  {
+    "instruction": "模型输出包含大量重复文字",
+    "input": "",
+    "output": "【问题】模型输出包含大量重复文字\n【原因】生成参数中repetition_penalty未设置或设为1.0，模型在某些情况下会陷入重复循环。\n【解决】设置repetition_penalty=1.1到1.3；同时设置合理的temperature（0.7左右），避免贪婪解码导致的重复；必要时设置no_repeat_ngram_size=3。"
+  },
+  {
+    "instruction": "训练数据量太少模型过拟合",
+    "input": "",
+    "output": "【问题】训练数据量太少模型过拟合\n【原因】只有9条训练数据，模型直接记忆了训练样本，在新问题上泛化能力极差。\n【解决】训练数据至少扩充到50条以上；使用数据增强（同义替换、问题改写）；加大dropout；减少训练轮数（epoch=1-3），避免过度拟合少量数据。"
+  },
+  {
+    "instruction": "peft加载LoRA权重后推理结果异常",
+    "input": "",
+    "output": "【问题】peft加载LoRA权重后推理结果异常\n【原因】推理时忘记调用model.eval()，dropout层仍在训练模式，导致输出随机性过高。\n【解决】加载模型和LoRA权重后立即调用model.eval()；推理时用torch.no_grad()上下文包裹，减少显存消耗并确保确定性输出。"
+  },
+  {
+    "instruction": "config.py中的配置被硬编码覆盖",
+    "input": "",
+    "output": "【问题】config.py中的配置被硬编码覆盖\n【原因】在多个文件中直接写死了参数值，config.py修改后不生效，调试时找不到实际生效的配置在哪。\n【解决】强制所有参数从config.py导入，禁止在业务代码中出现魔法数字；使用pydantic的BaseSettings做配置管理，支持环境变量覆盖。"
+  },
+  {
+    "instruction": "检索结果来源追溯显示的文档ID不对",
+    "input": "",
+    "output": "【问题】检索结果来源追溯显示的文档ID不对\n【原因】分片时没有把原始文档ID存入metadata，ChromaDB返回的是chunk的自增ID，无法对应回原始笔记。\n【解决】分片时在metadata中保存source_id、chunk_index、原始文件名等信息；检索返回时从metadata中读取source_id作为来源依据。"
+  },
+  {
+    "instruction": "LLM API调用频率过高触发限流",
+    "input": "",
+    "output": "【问题】LLM API调用频率过高触发限流\n【原因】Agent循环中每一步都立即调用API，压力测试或批量处理时很快触发rate limit。\n【解决】添加指数退避重试机制；对相同问题使用语义缓存（相似度>0.95的问题复用缓存结果）；非实时场景改用batch API。"
+  },
+  {
+    "instruction": "问题改写在简单问题上画蛇添足",
+    "input": "",
+    "output": "【问题】问题改写在简单问题上画蛇添足\n【原因】对所有问题都做改写，简单直接的问题被改写后反而变得更复杂，检索效果变差。\n【解决】改写前先判断问题是否完整：如果问题中没有代词、指示词（这、那、它、上面），且不依赖上下文，则跳过改写直接检索。"
+  },
+  {
+    "instruction": "前端发送消息后界面卡顿无响应",
+    "input": "",
+    "output": "【问题】前端发送消息后界面卡顿无响应\n【原因】在React主线程中直接处理SSE数据流和DOM更新，数据量大时阻塞了UI渲染。\n【解决】使用useCallback优化事件处理函数，避免重复创建；流式更新时用requestAnimationFrame批量合并DOM操作；消息列表使用虚拟滚动处理长对话。"
+  },
+  {
+    "instruction": "Accelerate多GPU训练时gradient同步报错",
+    "input": "",
+    "output": "【问题】Accelerate多GPU训练时gradient同步报错\n【原因】在多GPU环境下，部分操作没有用accelerator.gather()包裹，导致各GPU间梯度不同步。\n【解决】单机单卡训练时不需要考虑这个问题；如果用多卡，所有跨GPU的tensor操作都要通过accelerator的接口；初学阶段建议先用单卡跑通流程。"
+  },
+  {
+    "instruction": "模型生成时max_new_tokens设置太小输出被截断",
+    "input": "",
+    "output": "【问题】模型生成时max_new_tokens设置太小输出被截断\n【原因】默认或设置的max_new_tokens=50，复杂问题的回答需要200+token，输出在中间被截断。\n【解决】根据预期输出长度设置max_new_tokens，一般设置256-512；同时设置eos_token_id确保遇到结束符正常停止，避免设太大导致输出废话。"
+  },
+  {
+    "instruction": "ChromaDB在Windows路径包含中文时报错",
+    "input": "",
+    "output": "【问题】ChromaDB在Windows路径包含中文时报错\n【原因】ChromaDB的持久化路径如果包含中文字符，在Windows下文件系统编码处理时报错。\n【解决】persist_directory使用纯英文路径，如'./chroma_db'或'C:/projects/chroma_db'；或者使用os.path处理路径确保编码正确。"
+  },
+  {
+    "instruction": "sentencepiece导入时提示找不到模块",
+    "input": "",
+    "output": "【问题】sentencepiece导入时提示找不到模块\n【原因】部分中文模型的tokenizer依赖sentencepiece，但安装transformers时没有自动安装这个依赖。\n【解决】单独安装：pip install sentencepiece；如果还报错，检查是否需要安装protobuf：pip install protobuf。"
+  },
+  {
+    "instruction": "训练时gradient_checkpointing导致速度极慢",
+    "input": "",
+    "output": "【问题】训练时gradient_checkpointing导致速度极慢\n【原因】gradient_checkpointing通过重新计算中间激活值来节省显存，但会带来约30%的计算开销，显存充足时不必要。\n【解决】8GB显存训练1.5B模型时可以不开gradient_checkpointing；显存紧张时再开启；开启时配合use_cache=False避免冲突。"
+  },
+  {
+    "instruction": "数据集格式不符合trainer要求报错",
+    "input": "",
+    "output": "【问题】数据集格式不符合trainer要求报错\n【原因】自定义的JSON数据集没有转换为HuggingFace Dataset格式，或者字段名与trainer期望的不匹配。\n【解决】使用datasets.Dataset.from_list()将list转为Dataset对象；确保有input_ids、attention_mask、labels三个字段；用data_collator处理动态padding。"
+  },
+  {
+    "instruction": "推理时模型不停输出不知道何时结束",
+    "input": "",
+    "output": "【问题】推理时模型不停输出不知道何时结束\n【原因】generate()没有设置停止条件，或者eos_token_id设置错误，模型一直生成直到max_new_tokens。\n【解决】设置正确的eos_token_id（从tokenizer.eos_token_id获取）；如果有自定义停止词，使用StoppingCriteria；设置合理的max_new_tokens作为兜底。"
+  },
+  {
+    "instruction": "LoRA rank设置太大训练参数量超预期",
+    "input": "",
+    "output": "【问题】LoRA rank设置太大训练参数量超预期\n【原因】lora_r=64，导致可训练参数量过多，8GB显存放不下，训练速度也变慢。\n【解决】小数据集微调时lora_r=8或16足够；lora_alpha通常设为lora_r的两倍；优先增加数据量而不是增大rank。"
+  },
+  {
+    "instruction": "保存的LoRA权重无法在其他机器加载",
+    "input": "",
+    "output": "【问题】保存的LoRA权重无法在其他机器加载\n【原因】只保存了adapter权重，但目标机器上的base model版本不同，导致权重不兼容。\n【解决】保存时记录base_model_name_or_path；加载时确保base model版本完全一致；或者使用merge_and_unload()将LoRA合并进base model保存完整权重。"
+  },
+  {
+    "instruction": "评估脚本运行结果每次不一样",
+    "input": "",
+    "output": "【问题】评估脚本运行结果每次不一样\n【原因】推理时temperature>0，模型输出有随机性，导致同一问题每次评估结果不同，无法公平比较。\n【解决】评估时设置temperature=0（greedy decoding）或固定random seed；do_sample=False确保确定性输出，保证评估结果可复现。"
+  },
+  {
+    "instruction": "agent回答问题时把工具调用过程暴露给用户",
+    "input": "",
+    "output": "【问题】agent回答问题时把工具调用过程暴露给用户\n【原因】流式输出时把所有LLM输出都推给前端，包括了tool_call的JSON内容，用户看到了内部实现细节。\n【解决】流式输出时检测内容类型，tool_call阶段只在后端处理不推给前端；只有最终的text回答才通过SSE推送；可以发送'思考中...'状态给前端。"
+  },
+  {
+    "instruction": "知识库更新后旧的向量缓存导致检索结果过期",
+    "input": "",
+    "output": "【问题】知识库更新后旧的向量缓存导致检索结果过期\n【原因】修改了源文档内容，但没有更新ChromaDB中对应的向量，检索时仍返回旧内容。\n【解决】文档更新时通过document ID在ChromaDB中执行update操作；或者建立文档哈希表，启动时对比哈希值，变更的文档重新embedding。"
+  },
+  {
+    "instruction": "并发请求时ChromaDB读写冲突",
+    "input": "",
+    "output": "【问题】并发请求时ChromaDB读写冲突\n【原因】多个请求同时读写ChromaDB，SQLite后端不支持高并发写入，出现锁超时报错。\n【解决】开发阶段用threading.Lock做写操作互斥；生产环境换用ChromaDB的HTTP server模式或者迁移到支持并发的向量数据库如Qdrant、Weaviate。"
+  },
+  {
+    "instruction": "模型回答语言与问题语言不一致",
+    "input": "",
+    "output": "【问题】模型回答语言与问题语言不一致\n【原因】system prompt是中文，但检索到的文档chunk是英文，模型混合了两种语言输出。\n【解决】在system prompt中明确指定回答语言：'请用中文回答'；或者检测问题语言后动态设置回答语言要求；多语言文档库建议分开存储。"
+  },
+  {
+    "instruction": "QLoRA 微调后保存的模型加载时提示找不到 adapter_config.json",
+    "input": "",
+    "output": "【问题】QLoRA 微调后保存的模型加载时提示找不到 adapter_config.json\n【原因】只保存了 LoRA 的权重（adapter_model.bin），但没把生成该权重的配置文件（adapter_config.json）拷到目标目录，或者使用的是加载完整模型的方法去读 adapter 目录。\n【解决】保存时确保使用 model.save_pretrained('./output')，它会自动生成这两个文件；加载时如果想单独加载 LoRA，需先加载 base model 再用 PeftModel.from_pretrained 加载 adapter 目录。"
+  }
+]

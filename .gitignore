@@ -1,3 +1,12 @@
 .sisyphus
 .venv
 __pycache__
+
+*.sqlite3
+*.safetensors
+*.pt
+*.pth
+*.bin
+**/chroma_db/
+**/qlora_output/
+**/__pycache__/
